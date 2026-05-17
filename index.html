@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRISPR & Beta Cell Workflows</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #f5f5f2; color: #1a1a18; padding: 2rem; }
+  h1 { font-size: 1.1rem; font-weight: 500; color: #555; margin-bottom: 2rem; letter-spacing: 0.02em; }
+  section { margin-bottom: 3rem; }
+  h2 { font-size: 0.85rem; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+  .card { background: #fff; border-radius: 16px; padding: 2rem; border: 0.5px solid #e0ded8; }
+  svg { width: 100%; height: auto; display: block; }
+
+  /* Node hover */
+  .node { cursor: pointer; }
+  .node:hover rect, .node:hover ellipse { opacity: 0.85; }
+
+  /* Step boxes */
+  .step-teal rect   { fill: #e1f5ee; stroke: #0f6e56; }
+  .step-teal text   { fill: #085041; }
+  .step-purple rect { fill: #eeedfe; stroke: #534ab7; }
+  .step-purple text { fill: #3c3489; }
+  .step-coral rect  { fill: #faece7; stroke: #993c1d; }
+  .step-coral text  { fill: #712b13; }
+  .step-gray rect   { fill: #f1efe8; stroke: #5f5e5a; }
+  .step-gray text   { fill: #444441; }
+  .step-amber rect  { fill: #faeeda; stroke: #854f0b; }
+  .step-amber text  { fill: #633806; }
+  .step-blue rect   { fill: #e6f1fb; stroke: #185fa5; }
+  .step-blue text   { fill: #0c447c; }
+  .step-red rect    { fill: #fcebeb; stroke: #a32d2d; }
+  .step-red text    { fill: #791f1f; }
+  .step-green rect  { fill: #eaf3de; stroke: #3b6d11; }
+  .step-green text  { fill: #27500a; }
+
+  .label-main { font-size: 13px; font-weight: 500; }
+  .label-sub  { font-size: 11px; font-weight: 400; }
+  .section-title { font-size: 15px; font-weight: 500; fill: #1a1a18; }
+  .arrow { fill: none; stroke: #888; stroke-width: 1.5; marker-end: url(#arr); }
+  .dashed { fill: none; stroke: #bbb; stroke-width: 1; stroke-dasharray: 5 3; }
+</style>
+</head>
+<body>
+<h1>Salk Institute — Superb-seq & Related Workflows</h1>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- WORKFLOW 1: SUPERB-SEQ PIPELINE                 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section>
+<h2>1 · Superb-seq pipeline</h2>
+<div class="card">
+<svg viewBox="0 0 720 400">
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#0f6e56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#534ab7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arr-coral" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#993c1d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<text class="section-title" x="360" y="28" text-anchor="middle">Superb-seq — joint edit + transcriptome capture</text>
+
+<!-- Step 1 -->
+<g class="node step-teal">
+  <rect x="20" y="50" width="190" height="70" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="115" y="78" text-anchor="middle">Step 1 · Edit labeling</text>
+  <text class="label-sub"  x="115" y="96" text-anchor="middle">Cas9 RNP + T7 promoter</text>
+  <text class="label-sub"  x="115" y="112" text-anchor="middle">Homology-free knock-in</text>
+</g>
+
+<!-- Arrow 1→2 -->
+<line x1="210" y1="85" x2="236" y2="85" class="arrow" stroke="#0f6e56" marker-end="url(#arr-teal)"/>
+
+<!-- Step 2 -->
+<g class="node step-teal">
+  <rect x="236" y="50" width="190" height="70" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="331" y="78" text-anchor="middle">Step 2 · In situ Tx</text>
+  <text class="label-sub"  x="331" y="96" text-anchor="middle">T7 RNA pol transcribes</text>
+  <text class="label-sub"  x="331" y="112" text-anchor="middle">edit sites in fixed cells</text>
+</g>
+
+<!-- Arrow 2→3 -->
+<line x1="426" y1="85" x2="452" y2="85" class="arrow" stroke="#0f6e56" marker-end="url(#arr-teal)"/>
+
+<!-- Step 3 -->
+<g class="node step-teal">
+  <rect x="452" y="50" width="248" height="70" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="576" y="78" text-anchor="middle">Step 3 · scRNA-seq</text>
+  <text class="label-sub"  x="576" y="96" text-anchor="middle">Combinatorial indexing</text>
+  <text class="label-sub"  x="576" y="112" text-anchor="middle">T7 + endogenous RNA readout</text>
+</g>
+
+<!-- Arrow down to Sheriff -->
+<line x1="576" y1="120" x2="576" y2="152" class="arrow" stroke="#534ab7" marker-end="url(#arr-purple)"/>
+
+<!-- Sheriff -->
+<g class="node step-purple">
+  <rect x="380" y="152" width="390" height="56" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="575" y="176" text-anchor="middle">Sheriff software</text>
+  <text class="label-sub"  x="575" y="195" text-anchor="middle">Aligns T7 reads → identifies edit alleles per cell · maps genomic context</text>
+</g>
+
+<!-- 3 output arrows from Sheriff -->
+<line x1="460" y1="208" x2="140" y2="268" class="arrow" stroke="#993c1d" marker-end="url(#arr-coral)"/>
+<line x1="575" y1="208" x2="400" y2="268" class="arrow" stroke="#993c1d" marker-end="url(#arr-coral)"/>
+<line x1="690" y1="208" x2="630" y2="268" class="arrow" stroke="#993c1d" marker-end="url(#arr-coral)"/>
+
+<!-- Output 1 -->
+<g class="node step-coral">
+  <rect x="20" y="268" width="240" height="62" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="140" y="292" text-anchor="middle">Off-target edit atlas</text>
+  <text class="label-sub"  x="140" y="310" text-anchor="middle">36 sites detected (exon / intron /</text>
+  <text class="label-sub"  x="140" y="324" text-anchor="middle">intergenic), 7 gRNAs</text>
+</g>
+
+<!-- Output 2 -->
+<g class="node step-coral">
+  <rect x="280" y="268" width="240" height="62" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="400" y="292" text-anchor="middle">Edit dosage per cell</text>
+  <text class="label-sub"  x="400" y="310" text-anchor="middle">Up to 5 edits/cell captured</text>
+  <text class="label-sub"  x="400" y="324" text-anchor="middle">Linear mixed model for DE</text>
+</g>
+
+<!-- Output 3 -->
+<g class="node step-coral">
+  <rect x="540" y="268" width="160" height="62" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="620" y="292" text-anchor="middle">DE gene effects</text>
+  <text class="label-sub"  x="620" y="310" text-anchor="middle">19 off-targets → DE</text>
+  <text class="label-sub"  x="620" y="324" text-anchor="middle">9 cell-type specific</text>
+</g>
+
+<!-- Bottom convergence -->
+<line x1="140" y1="330" x2="280" y2="368" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+<line x1="400" y1="330" x2="380" y2="368" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+<line x1="620" y1="330" x2="480" y2="368" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+
+<g class="node step-gray">
+  <rect x="200" y="368" width="340" height="24" rx="8" stroke-width="0.5"/>
+  <text class="label-main" x="370" y="385" text-anchor="middle">Empirical ground truth for in silico benchmarking</text>
+</g>
+</svg>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- WORKFLOW 2: IN SILICO vs EMPIRICAL             -->
+<!-- ═══════════════════════════════════════════════ -->
+<section>
+<h2>2 · In silico vs empirical off-target detection</h2>
+<div class="card">
+<svg viewBox="0 0 720 360">
+
+<text class="section-title" x="360" y="28" text-anchor="middle">Why in silico tools fall short — and how Superb-seq fills the gap</text>
+
+<!-- Left column: In silico -->
+<g class="node step-blue">
+  <rect x="20" y="50" width="300" height="56" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="170" y="74" text-anchor="middle">In silico off-target prediction</text>
+  <text class="label-sub"  x="170" y="93" text-anchor="middle">Cas-OFFinder · COSMID · E-CRISP</text>
+</g>
+
+<!-- Right column: Empirical -->
+<g class="node step-teal">
+  <rect x="400" y="50" width="300" height="56" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="550" y="74" text-anchor="middle">Empirical off-target detection</text>
+  <text class="label-sub"  x="550" y="93" text-anchor="middle">Superb-seq + Sheriff</text>
+</g>
+
+<!-- In silico mechanism -->
+<g class="node step-blue">
+  <rect x="20" y="130" width="300" height="56" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="170" y="154" text-anchor="middle">Sequence similarity only</text>
+  <text class="label-sub"  x="170" y="173" text-anchor="middle">Enumerate gRNA mismatches genome-wide</text>
+</g>
+<line x1="170" y1="106" x2="170" y2="130" class="arrow" stroke="#185fa5" marker-end="url(#arr-teal)"/>
+
+<!-- Empirical mechanism -->
+<g class="node step-teal">
+  <rect x="400" y="130" width="300" height="56" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="550" y="154" text-anchor="middle">Context-aware detection</text>
+  <text class="label-sub"  x="550" y="173" text-anchor="middle">T7 transcript at actual edit site per cell</text>
+</g>
+<line x1="550" y1="106" x2="550" y2="130" class="arrow" stroke="#0f6e56" marker-end="url(#arr-teal)"/>
+
+<!-- Problem box -->
+<g class="node step-red">
+  <rect x="20" y="210" width="300" height="70" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="170" y="234" text-anchor="middle">Poor specificity</text>
+  <text class="label-sub"  x="170" y="252" text-anchor="middle">Cas-OFFinder: 64% recall</text>
+  <text class="label-sub"  x="170" y="268" text-anchor="middle">but 0.05% precision (45k predictions)</text>
+</g>
+<line x1="170" y1="186" x2="170" y2="210" class="arrow" stroke="#a32d2d" marker-end="url(#arr-coral)"/>
+
+<!-- Benefit box -->
+<g class="node step-green">
+  <rect x="400" y="210" width="300" height="70" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="550" y="234" text-anchor="middle">High specificity</text>
+  <text class="label-sub"  x="550" y="252" text-anchor="middle">De novo detection, no assumptions</text>
+  <text class="label-sub"  x="550" y="268" text-anchor="middle">Chromatin + expression context captured</text>
+</g>
+<line x1="550" y1="186" x2="550" y2="210" class="arrow" stroke="#0f6e56" marker-end="url(#arr-teal)"/>
+
+<!-- Middle gap label -->
+<text style="font-size:12px;fill:#888;font-style:italic" x="360" y="255" text-anchor="middle">Gap</text>
+<line x1="320" y1="245" x2="345" y2="245" class="dashed"/>
+<line x1="375" y1="245" x2="400" y2="245" class="dashed"/>
+
+<!-- Convergence: training data -->
+<line x1="170" y1="280" x2="270" y2="316" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+<line x1="550" y1="280" x2="450" y2="316" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+
+<g class="node step-amber">
+  <rect x="180" y="316" width="360" height="36" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="360" y="333" text-anchor="middle">Superb-seq as training ground truth → next-gen context-aware predictors</text>
+  <text class="label-sub"  x="360" y="347" text-anchor="middle">sequence + chromatin + expression → guide RNA optimization</text>
+</g>
+
+</svg>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- WORKFLOW 3: BETA CELL REPROGRAMMING            -->
+<!-- ═══════════════════════════════════════════════ -->
+<section>
+<h2>3 · Beta cell GLP/glucose reprogramming</h2>
+<div class="card">
+<svg viewBox="0 0 720 340">
+
+<text class="section-title" x="360" y="28" text-anchor="middle">Tissue remodeling by hormones — beta cell reprogramming</text>
+
+<!-- Shared input -->
+<g class="node step-amber">
+  <rect x="260" y="50" width="200" height="52" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="360" y="73" text-anchor="middle">GLP + glucose signal</text>
+  <text class="label-sub"  x="360" y="91" text-anchor="middle">Pancreatic beta cells</text>
+</g>
+
+<!-- Branch arrows -->
+<line x1="310" y1="102" x2="190" y2="140" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+<line x1="410" y1="102" x2="530" y2="140" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+
+<!-- Short term -->
+<g class="node step-blue">
+  <rect x="20" y="140" width="320" height="52" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="180" y="163" text-anchor="middle">Short term — acute signaling</text>
+  <text class="label-sub"  x="180" y="181" text-anchor="middle">Insulin secretion · cells not fundamentally changed</text>
+</g>
+
+<!-- Long term -->
+<g class="node step-teal">
+  <rect x="380" y="140" width="320" height="52" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="540" y="163" text-anchor="middle">Long term — stabilized GLP</text>
+  <text class="label-sub"  x="540" y="181" text-anchor="middle">Epigenetic remodeling · identity shift</text>
+</g>
+
+<!-- Short term outcome -->
+<line x1="180" y1="192" x2="180" y2="228" class="arrow" stroke="#185fa5" marker-end="url(#arr-teal)"/>
+<g class="node step-blue">
+  <rect x="20" y="228" width="320" height="52" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="180" y="251" text-anchor="middle">Transient insulin response</text>
+  <text class="label-sub"  x="180" y="269" text-anchor="middle">No lasting structural change to beta cell</text>
+</g>
+
+<!-- Long term outcomes -->
+<line x1="540" y1="192" x2="540" y2="228" class="arrow" stroke="#0f6e56" marker-end="url(#arr-teal)"/>
+<g class="node step-teal">
+  <rect x="380" y="228" width="320" height="72" rx="10" stroke-width="0.5"/>
+  <text class="label-main" x="540" y="251" text-anchor="middle">Beta cell reprogramming</text>
+  <text class="label-sub"  x="540" y="268" text-anchor="middle">Stress resistance ↑ · Function ↑</text>
+  <text class="label-sub"  x="540" y="284" text-anchor="middle">Viability ↑ · Insulin production ↑</text>
+  <text class="label-sub"  x="540" y="299" text-anchor="middle">Cell-type specific expression changes</text>
+</g>
+
+<!-- Therapeutic implication -->
+<line x1="540" y1="300" x2="440" y2="320" class="arrow" stroke="#444" marker-end="url(#arr)"/>
+<g class="node step-amber">
+  <rect x="200" y="316" width="320" height="20" rx="6" stroke-width="0.5"/>
+  <text class="label-main" x="360" y="330" text-anchor="middle">Therapeutic target for T2D · CRISPR editing context</text>
+</g>
+
+</svg>
+</div>
+</section>
+
+</body>
+</html>
